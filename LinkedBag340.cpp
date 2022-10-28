@@ -1,15 +1,6 @@
-//	LinkedBag340.cpp
-//	Created by: CSC340
-
-/*
-===>					<===
-===>  PLEASE ADD CODE	<===
-===>					<===
-*/
-
-#include "Node.cpp"
-#include "LinkedBag.cpp"
+#include "LinkedBag.h"
 #include <cstdlib>
+
 
 
 
@@ -18,53 +9,62 @@
 // step 1: check if the headNode.next != null
 //
 //		headNode -> secondNode -> null
-//				???
+//					   ???
 // 
 // step 2: we want to assign headNode.next to the secondNode.next to 
 // 
 //		headNode    secondNode -> null
-//		    |		           ^
-//		    |______________________|
+//			|					   ^
+//			|______________________|
 //			
 // step 3: we want to assign secondNode.next = nullptr
 // 
-//		headNode	secondNode	null
-//		   |               `-> null	 ^
-//		   |_____________________________|
+//		headNode		secondNode		null
+//			|			    `-> null	 ^
+//			|____________________________|
 // 
 // step 4: we want to remove the secondNode now that it has been unlinked from prevNode and nextNode
 //
 //		headNode -> null
 // this function removes the second node in the linked list //
 template<typename ItemType>
-void removeSecondNode340(const LinkedBag<ItemType>& aBag) {
+bool LinkedBag<ItemType>::removeSecondNode340() {
 
-	if (aBag.headPtr != nullptr) {
+	if (headPtr != nullptr) {
 
-		Node<ItemType>* secondNode = aBag.headPtr->getNext();
+		Node<ItemType>* secondNode = headPtr->getNext(); //reference to second Node
 
-		aBag.headPtr->setNext(secondNode->getNext());
+		headPtr->setNext(secondNode->getNext());
 		secondNode->setNext(nullptr);
-		aBag.remove(secondNode);
-	}
-}
 
-// step 1: create the new Node to add to the end of the linked list
+		delete secondNode;
+		secondNode = nullptr;
+		itemCount--;
+
+		return true;
+	}
+	return false;
+}
+// step 1: create a reference to the headNode
 // step 2: traverse linked list until node.next == null (end node found)
-// step 3: assign the last node.next to new node
+// step 3: create the newNode, add its data, and set newNode.next == nullptr
+// step 3: assign the end node.next to the newNnode
 // step 4: make sure new node added to end points to null
 //
 // this function appends a new node to the end of the linked list
 template<typename ItemType>
-void addEnd340(const LinkedBag<ItemType>& aBag) {
-
-	Node<ItemType>* newNode{ nullptr };
-	Node<ItemType>* currPtr = aBag.headPtr;
+bool LinkedBag<ItemType>::addEnd340(const ItemType& newEntry) {
+	
+	Node<ItemType>* currPtr = headPtr;
 
 	while (currPtr != nullptr) {
 		currPtr = currPtr->getNext();
 	}
+
+	Node<ItemType>* newNode{ newEntry, nullptr };
+
 	currPtr->setNext(newNode);
+	return  (currPtr->getNext() == newNode);
 }
 
 // step 1: create a count variable initialized to 0 to hold size value
@@ -78,13 +78,13 @@ void addEnd340(const LinkedBag<ItemType>& aBag) {
 //		 `-> 1
 // 
 //		Node -> Node -> Node -> Node -> null
-//		         `-> 2
+//				 `-> 2
 // 
 //		Node -> Node -> Node -> Node -> null
-//			         `-> 3
+//						 `-> 3
 // 
 //		Node -> Node -> Node -> Node -> null
-//					 `-> 4
+//								 `-> 4
 // 
 //		currPtr->getNext() == nullptr -> EXIT LOOP
 // 
@@ -92,15 +92,14 @@ void addEnd340(const LinkedBag<ItemType>& aBag) {
 //
 // this function iteratively traverses the linked list and returns its size
 template<typename ItemType>
-int getCurrentSize340Iterative(const LinkedBag<ItemType>& aBag) {
-	// static variable retains updated value within this function
-	// because it is still on the Runtime Stack for this functions
-	// activation record
-	static int count = 0;
-	Node<ItemType>* currPtr = aBag.headPtr;
+int LinkedBag<ItemType>::getCurrentSize340Iterative() const {
+
+	int count = 0;
+
+	Node<ItemType>* currPtr = headPtr;
 	while (currPtr != nullptr) {
-		count++;
 		currPtr = currPtr->getNext();
+		count++;
 	}
 	return count;
 }
@@ -111,8 +110,8 @@ int getCurrentSize340Iterative(const LinkedBag<ItemType>& aBag) {
 // this function uses the auxiliary function below to recursively traverse 
 // the linked list and find its size
 template<typename ItemType>
-int getCurrentSize340Recursive(const LinkedBag<ItemType>& aBag) {
-	return getCurrentSize340RecursiveHelper(aBag)
+int LinkedBag<ItemType>::getCurrentSize340Recursive() const {
+	return getCurrentSize340RecursiveHelper();
 }
 
 // recursive auxiliary function
@@ -122,16 +121,15 @@ int getCurrentSize340Recursive(const LinkedBag<ItemType>& aBag) {
 //
 // this is an auxiliary function used by the function above
 template<typename ItemType>
-int getCurrentSize340RecursiveHelper(const LinkedBag<ItemType>& aBag) {
+int LinkedBag<ItemType>::getCurrentSize340RecursiveHelper(Node<ItemType>* currPtr) const {
 
-	Node<ItemType>* currPtr = aBag.headPtr;
 	// base Case
 	if (currPtr == nullptr) {
 		return 0;
 	}
 	// count this node plus the rest of the list
 	else {
-		return 1 + getCurrentSize340RecursiveNoHelper(currPtr->getNext());
+		return 1 + getCurrentSize340RecursiveHelper(currPtr->getNext());
 	}
 }
 
@@ -140,9 +138,9 @@ int getCurrentSize340RecursiveHelper(const LinkedBag<ItemType>& aBag) {
 // step 1: base case: check if headNode == null
 // step 2: return recursive function call passing headNode.next as param
 template<typename ItemType>
-int getCurrentSize340RecursiveNoHelper(const LinkedBag<ItemType>& aBag) {
+int LinkedBag<ItemType>::getCurrentSize340RecursiveNoHelper() const {
 
-	Node<ItemType>* currPtr = aBag.headPtr;
+	static Node<ItemType>* currPtr = headPtr;
 	// base Case
 	if (currPtr == nullptr) {
 		return 0;
@@ -153,10 +151,10 @@ int getCurrentSize340RecursiveNoHelper(const LinkedBag<ItemType>& aBag) {
 	}
 }
 
-//
+// this function uses an auziliary function to compute the size of the linked list
 template<typename ItemType>
-int getFrequencyOf340Recursive(const ItemType& anEntry) {
-	return getFrequencyOf340RecursiveHelper(anEntry)
+int LinkedBag<ItemType>::getFrequencyOf340Recursive(const ItemType& anEntry) const {
+	return getFrequencyOf340RecursiveHelper(anEntry);
 }
 
 // recursive auxiliary function
@@ -164,15 +162,15 @@ int getFrequencyOf340Recursive(const ItemType& anEntry) {
 // step 2: return recursive function call passing headNode.next as a param
 // function will exit when base case is met ( node == null)
 // 
-//this is an auxiliary function used by the function above
+// this is an auxiliary function used by the function above
 template<typename ItemType>
-int getFrequencyOf340RecursiveHelper(const ItemType& anEntry) {
+int LinkedBag<ItemType>::getFrequencyOf340RecursiveHelper(Node<ItemType>* currPtr, const ItemType& anEntry) const {
 
 	// static variable retains updated value within this function
 	// because it is still on the Runtime Stack for this functions
 	// activation record
 	static int count = 0;
-	Node<ItemType>* currPtr = headPtr;
+	currPtr = headPtr;
 
 	// base case 
 	if (currPtr == nullptr) {
@@ -195,13 +193,13 @@ int getFrequencyOf340RecursiveHelper(const ItemType& anEntry) {
 // step 2: traverse linked list and increment count when match is found
 // step 3: return count
 template<typename ItemType> 
-int getFrequencyOf340RecursiveNoHelper(const ItemType& anEntry) {
+int LinkedBag<ItemType>::getFrequencyOf340RecursiveNoHelper(const ItemType& anEntry) const {
 
 	// static variable retains updated value within this function
 	// because it is still on the Runtime Stack for this functions
 	// activation record
 	static int count = 0; 
-	Node<ItemType>* currPtr = headPtr;
+	Node<ItemType>* currPtr = LinkedBag::headPtr;
 	
 	// base case 
 	if (currPtr == nullptr) {
@@ -217,5 +215,7 @@ int getFrequencyOf340RecursiveNoHelper(const ItemType& anEntry) {
 	}
 }
 
+template<typename ItemType>
+ItemType LinkedBag<ItemType>::removeRandom340() {
 
-
+}

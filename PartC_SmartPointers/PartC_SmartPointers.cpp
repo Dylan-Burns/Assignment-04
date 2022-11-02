@@ -19,19 +19,19 @@
 // step 1: check if the headNode.next != null
 //
 //		headNode -> secondNode -> null
-//					         ???
+//					   ???
 // 
 // step 2: we want to assign headNode.next to the secondNode.next to 
 // 
 //		headNode    secondNode -> null
-//		  	|					             ^
-//			  |______________________|
+//			|					   ^
+//			|______________________|
 //			
 // step 3: we want to assign secondNode.next = nullptr
 // 
 //		headNode		secondNode		null
-//			|			      `-> null	   ^
-//			|________________________|
+//			|			    `-> null	 ^
+//			|____________________________|
 // 
 // step 4: we want to remove the secondNode now that it has been unlinked from prevNode and nextNode
 //
@@ -42,7 +42,7 @@ bool LinkedBag<ItemType>::removeSecondNode340() {
 
 	if (headPtr != nullptr) {
 
-		std::unique_ptr< Node<ItemType> > secondNode = headPtr->getNext(); //reference to second Node
+		auto secondNode = headPtr->getNext(); //reference to second Node
 
 		headPtr->setNext(secondNode->getNext());
 		secondNode->setNext(nullptr);
@@ -64,14 +64,14 @@ bool LinkedBag<ItemType>::removeSecondNode340() {
 template<typename ItemType>
 bool LinkedBag<ItemType>::addEnd340(const ItemType& newEntry) {
 
-	std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	auto currPtr = headPtr;
 
 	while (currPtr->getNext() != nullptr) {
 		currPtr = currPtr->getNext();
 	}
 
 	if (currPtr->getNext() == nullptr) {
-		std::unique_ptr< Node<ItemType> > newNode = std::make_unique< Node<ItemType> >();
+		auto newNode = std::make_unique< Node<ItemType> >();
 		newNode->setItem(newEntry);
 		currPtr->setNext(newNode);
 		itemCount++;
@@ -91,13 +91,13 @@ bool LinkedBag<ItemType>::addEnd340(const ItemType& newEntry) {
 //		 `-> 1
 // 
 //		Node -> Node -> Node -> Node -> null
-//				     `-> 2
+//				 `-> 2
 // 
 //		Node -> Node -> Node -> Node -> null
-//						         `-> 3
+//						 `-> 3
 // 
 //		Node -> Node -> Node -> Node -> null
-//								             `-> 4
+//								 `-> 4
 // 
 //		currPtr->getNext() == nullptr -> EXIT LOOP
 // 
@@ -109,7 +109,7 @@ int LinkedBag<ItemType>::getCurrentSize340Iterative() const {
 
 	int count = 0;
 
-	std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	auto currPtr = headPtr;
 
 	while (currPtr != nullptr) {
 		currPtr = currPtr->getNext();
@@ -127,7 +127,7 @@ int LinkedBag<ItemType>::getCurrentSize340Iterative() const {
 template<typename ItemType>
 int LinkedBag<ItemType>::getCurrentSize340Recursive() const {
 
-	std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	auto currPtr = headPtr;
 
 	return getCurrentSize340RecursiveHelper(std::make_unique<Node<ItemType>>(currPtr));
 }
@@ -158,7 +158,7 @@ int LinkedBag<ItemType>::getCurrentSize340RecursiveHelper(std::unique_ptr< Node<
 template<typename ItemType>
 int LinkedBag<ItemType>::getCurrentSize340RecursiveNoHelper() const {
 
-	std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	auto currPtr = headPtr;
 
 	if (currPtr == nullptr) {
 		return 0;
@@ -175,7 +175,7 @@ int LinkedBag<ItemType>::getCurrentSize340RecursiveNoHelper() const {
 template<typename ItemType>
 int LinkedBag<ItemType>::getFrequencyOf340Recursive(const ItemType& anEntry) const {
 
-	std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	auto currPtr = headPtr;
 
 	return getFrequencyOf340RecursiveHelper(std::make_unique<Node<ItemType>>(currPtr), anEntry);
 }
@@ -211,7 +211,7 @@ int LinkedBag<ItemType>::getFrequencyOf340RecursiveHelper(std::unique_ptr< Node<
 template<typename ItemType>
 int LinkedBag<ItemType>::getFrequencyOf340RecursiveNoHelper(const ItemType& anEntry) const {
 
-	static std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	static auto currPtr = headPtr;
 	int cases = 0;
 
 	if (currPtr == nullptr) {
@@ -245,14 +245,14 @@ ItemType LinkedBag<ItemType>::removeRandom340() {
 		random = rand() % bagSize + min;
 	}
 
-	std::unique_ptr< Node<ItemType> > currPtr = headPtr;
+	auto currPtr = headPtr;
 	int nElement = random;
 
 	for (int i = 0; i < (nElement - 2); i++) {
 		currPtr = currPtr->getNext();
 	}
 
-	std::unique_ptr< Node<ItemType> > temp = currPtr->getNext();
+	auto temp = currPtr->getNext();
 	item = temp->getItem();
 	remove(item);
 

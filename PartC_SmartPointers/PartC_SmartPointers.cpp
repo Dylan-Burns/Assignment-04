@@ -19,19 +19,19 @@
 // step 1: check if the headNode.next != null
 //
 //		headNode -> secondNode -> null
-//					   ???
+//			        ???
 // 
 // step 2: we want to assign headNode.next to the secondNode.next to 
 // 
 //		headNode    secondNode -> null
-//			|					   ^
-//			|______________________|
+//		   |		           ^
+//		   |_______________________|
 //			
 // step 3: we want to assign secondNode.next = nullptr
 // 
-//		headNode		secondNode		null
-//			|			    `-> null	 ^
-//			|____________________________|
+//		headNode	secondNode	null
+//		   |	          `-> null	 ^
+//		   |_____________________________|
 // 
 // step 4: we want to remove the secondNode now that it has been unlinked from prevNode and nextNode
 //
@@ -91,13 +91,13 @@ bool LinkedBag<ItemType>::addEnd340(const ItemType& newEntry) {
 //		 `-> 1
 // 
 //		Node -> Node -> Node -> Node -> null
-//				 `-> 2
+//		         `-> 2
 // 
 //		Node -> Node -> Node -> Node -> null
-//						 `-> 3
+//				 `-> 3
 // 
 //		Node -> Node -> Node -> Node -> null
-//								 `-> 4
+//					 `-> 4
 // 
 //		currPtr->getNext() == nullptr -> EXIT LOOP
 // 

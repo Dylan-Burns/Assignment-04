@@ -147,7 +147,7 @@ int LinkedBag<ItemType>::getCurrentSize340RecursiveHelper(std::unique_ptr< Node<
 	}
 	// count this node plus the rest of the list
 	else {
-		return 1 + getCurrentSize340RecursiveHelper(currPtr->getNext());
+		return 1 + getCurrentSize340RecursiveHelper(std::make_unique<Node<ItemType>>(currPtr->getNext()));
 	}
 }
 
@@ -194,10 +194,10 @@ int LinkedBag<ItemType>::getFrequencyOf340RecursiveHelper(std::unique_ptr< Node<
 		return 0;
 	}
 	if (currPtr->getItem() == anEntry) {
-		return 1 + getFrequencyOf340RecursiveHelper(currPtr->getNext(), anEntry);
+		return 1 + getFrequencyOf340RecursiveHelper(std::make_unique< Node<ItemType> >((currPtr->getNext())), anEntry);
 	}
 	else {
-		return getFrequencyOf340RecursiveHelper(currPtr->getNext(), anEntry);
+		return getFrequencyOf340RecursiveHelper(std::make_unique< Node<ItemType> >((currPtr->getNext())), anEntry);
 	}
 
 }

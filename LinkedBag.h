@@ -6,7 +6,6 @@
 #pragma once
 #include "Node.cpp"
 #include "BagInterface.h"
-#include <memory>
 
 //
 //
@@ -28,13 +27,13 @@ public:
 	int getFrequencyOf340RecursiveNoHelper(const ItemType&) const;
 	ItemType removeRandom340();
 private:
-	int getCurrentSize340RecursiveHelper(std::unique_ptr< Node<ItemType> >) const; // if needed
-	int getFrequencyOf340RecursiveHelper(std::unique_ptr< Node<ItemType> >, const ItemType&) const; // if needed
+	int getCurrentSize340RecursiveHelper(Node<ItemType>*) const; // if needed
+	int getFrequencyOf340RecursiveHelper(Node<ItemType>*, const ItemType&) const; // if needed
 /*----------------------------------------------------------------------*/
 
 public:
 	LinkedBag();
-	LinkedBag(const LinkedBag<ItemType>&);		
+	LinkedBag(const LinkedBag<ItemType>&);
 	virtual ~LinkedBag();
 	int getCurrentSize() const;
 	bool isEmpty() const;
@@ -46,9 +45,9 @@ public:
 	std::vector<ItemType> toVector() const;
 
 private:
-	std::unique_ptr< Node<ItemType> > headPtr{ nullptr }; // Pointer to first node
+	Node<ItemType>* headPtr{ nullptr }; // Pointer to first node
 	int itemCount{ 0 };					// Current count of bag items
 
 	// pointer to the node or the null pointer 
-	std::unique_ptr< Node<ItemType> > getPointerTo(const ItemType&) const;
+	Node<ItemType>* getPointerTo(const ItemType&) const;
 };

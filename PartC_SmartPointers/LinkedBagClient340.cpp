@@ -1,7 +1,16 @@
 //	LinkedBagClient340.cpp
 //	Created by: Duc Ta
 
-#include "Include.h"
+
+#include "LinkedBag340.cpp"
+#include "LinkedBag.cpp"
+
+#include "include.h"
+
+using namespace std;
+#include <memory>
+#include <vector>
+#include <iostream>
 
 //
 //
@@ -10,6 +19,7 @@
 //
 
 void displayBag(const unique_ptr<LinkedBag<string>>&);
+
 
 int main() {
 
@@ -20,7 +30,8 @@ int main() {
 	unique_ptr<LinkedBag<string>> bag { make_unique <LinkedBag<string>>() };
 	
 	// A small vector of small objects to test the bag
-	vector<string> items { "#-END", "5-FIVE", "4-FOUR", "4-FOUR", "3-THREE", "2-TWO", "1-ONE", "0-ZERO", "#-BEGIN" };
+	vector<string> items { "#-END", "5-FIVE", "4-FOUR", "4-FOUR", "3-THREE", "2-TWO"
+		, "1-ONE", "0-ZERO", "#-BEGIN" };
 	cout << " !add()...     ";
 	vector<string>::const_iterator cItr;
 	for (cItr = items.begin(); cItr  != items.end(); cItr++) {

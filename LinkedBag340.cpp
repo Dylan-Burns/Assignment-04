@@ -8,12 +8,11 @@
 */
 
 
-
-#include "Include.h"
+#include "LinkedBag.cpp"
+#include "LinkedBag.h"
 #include <iostream>
 #include <cstddef>
 #include <cstdlib>		
-#include <ctime>		
 
 
 

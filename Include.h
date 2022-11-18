@@ -1,6 +1,5 @@
 //	Include.h
-
-#include "LinkedBag340.cpp"
+#include "PartC_SmartPointers.cpp"
 #include <iostream>
 
 using namespace std;

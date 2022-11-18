@@ -17,16 +17,16 @@ int main() {
 
 	// 1. Create a bag and add initial nodes
 	cout << "--->>>>> Test 1 --->>>>>" << endl;
-	unique_ptr<LinkedBag<string>> bag { make_unique <LinkedBag<string>>() };
-	
+	unique_ptr<LinkedBag<string>> bag{ make_unique <LinkedBag<string>>() };
+
 	// A small vector of small objects to test the bag
-	vector<string> items { "#-END", "5-FIVE", "4-FOUR", "4-FOUR", "3-THREE", "2-TWO", "1-ONE", "0-ZERO", "#-BEGIN" };
+	vector<string> items{ "#-END", "5-FIVE", "4-FOUR", "4-FOUR", "3-THREE", "2-TWO", "1-ONE", "0-ZERO", "#-BEGIN" };
 	cout << " !add()...     ";
 	vector<string>::const_iterator cItr;
-	for (cItr = items.begin(); cItr  != items.end(); cItr++) {
+	for (cItr = items.begin(); cItr != items.end(); cItr++) {
 		cout << *cItr << " ";
 		bool success = bag->add(*cItr);
-		if ( !success) {
+		if (!success) {
 			cout << " !add() FAILED: " << *cItr << endl;
 		}
 	}
@@ -50,7 +50,7 @@ int main() {
 	cout << "\n !addEnd340()... ";
 	bag->addEnd340("9-NINE");
 	cout << "\n !addEnd340()... ";
-	bag->addEnd340("4-FOUR"); 
+	bag->addEnd340("4-FOUR");
 	displayBag(bag);
 	cout << "\n !addEnd340()... ";
 	bag->addEnd340("9-NINE");
@@ -69,13 +69,13 @@ int main() {
 	cout << "\n !getCurrentSize340Recursive() - Recursive... ";
 	cout << "\n  ---> Current size: " << bag->getCurrentSize340Recursive();
 	displayBag(bag);
-		
+
 	// 6. getCurrentSize() - Recursive w/ no helper function
 	cout << "\n--->>>>> Test 6 --->>>>>";
 	cout << "\n !getCurrentSize340RecursiveNoHelper() - Recursive... ";
 	cout << "\n  ---> Current size: " << bag->getCurrentSize340RecursiveNoHelper();
 	displayBag(bag);
-	
+
 	// 7. getFrequencyOf() - Recursive
 	cout << "\n--->>>>> Test 7 --->>>>>";
 
@@ -130,10 +130,10 @@ void displayBag(const unique_ptr<LinkedBag<string>>& bag) {
 	auto bagItems = make_unique<vector<string>>(bag->toVector());
 
 	vector<string>::const_iterator cItr;
-	for (cItr = bagItems->begin(); cItr  != bagItems->end(); cItr++) {
+	for (cItr = bagItems->begin(); cItr != bagItems->end(); cItr++) {
 		cout << *cItr << " ";
 	}
-	
+
 	cout << "\n  -----------> " << bagItems->size() << " item(s) total";
 	cout << endl;
 }

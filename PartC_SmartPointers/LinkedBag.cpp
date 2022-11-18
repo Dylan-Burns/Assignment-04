@@ -94,13 +94,12 @@ bool LinkedBag<ItemType>::remove(const ItemType& anEntry) {
 
 	if (canRemoveItem) {
 		entryNodePtr->setItem(headPtr->getItem());
-		std::shared_ptr<Node<ItemType>> nodeToDeletePtr = headPtr;
+		std::shared_ptr<Node<ItemType>> nodeToDeletePtr{ headPtr };
 		headPtr = headPtr->getNext();
 		nodeToDeletePtr->setNext(nullptr);
 		
 		entryNodePtr.reset();
 
-		
 		nodeToDeletePtr = nullptr;
 
 		itemCount--;
@@ -129,7 +128,7 @@ template<typename ItemType>
 int LinkedBag<ItemType>::getFrequencyOf(const ItemType& anEntry) const {
 	int frequency = 0;
 	int counter = 0;
-	std::shared_ptr<Node<ItemType>> curPtr = headPtr;
+	std::shared_ptr<Node<ItemType>> curPtr{ headPtr };
 
 	while ((curPtr != nullptr) && (counter < itemCount)) {
 		if (anEntry == curPtr->getItem()) {
@@ -150,7 +149,7 @@ bool LinkedBag<ItemType>::contains(const ItemType& anEntry) const {
 template<typename ItemType>
 std::shared_ptr<Node<ItemType>> LinkedBag<ItemType>::getPointerTo(const ItemType& anEntry) const {
 	bool found = false;
-	std::shared_ptr<Node<ItemType>> curPtr = headPtr;
+	std::shared_ptr<Node<ItemType>> curPtr{ headPtr };
 
 	while (!found && (curPtr != nullptr)) {
 		if (anEntry == curPtr->getItem()) {

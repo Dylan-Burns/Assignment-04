@@ -68,7 +68,7 @@ bool LinkedBag<ItemType>::removeSecondNode340() {
 // this function appends a new node to the end of the linked list
 template<typename ItemType>
 bool LinkedBag<ItemType>::addEnd340(const ItemType& newEntry) {
-
+	
 	std::shared_ptr<Node<ItemType>> currPtr = headPtr;
 
 	while (currPtr->getNext() != nullptr) {

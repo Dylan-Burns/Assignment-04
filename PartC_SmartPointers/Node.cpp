@@ -15,6 +15,11 @@ template<typename ItemType>
 Node<ItemType>::Node() : item(), next(nullptr) {}
 
 template<typename ItemType>
+Node<ItemType>::~Node() {
+	 std::cout << std::endl << "Node Destroyed" << std::endl;
+}
+
+template<typename ItemType>
 Node<ItemType>::Node(const ItemType& anItem) : item(anItem), next(nullptr) {}
 
 template<typename ItemType>

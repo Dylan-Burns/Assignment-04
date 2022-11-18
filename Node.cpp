@@ -15,11 +15,6 @@ template<typename ItemType>
 Node<ItemType>::Node() : item(), next(nullptr) {}
 
 template<typename ItemType>
-Node<ItemType>::~Node() {
-	 std::cout << std::endl << "Node Destroyed" << std::endl;
-}
-
-template<typename ItemType>
 Node<ItemType>::Node(const ItemType& anItem) : item(anItem), next(nullptr) {}
 
 template<typename ItemType>
@@ -32,8 +27,8 @@ void Node<ItemType>::setItem(const ItemType& anItem) {
 }
 
 template<typename ItemType>
-void Node<ItemType>::setNext(std::shared_ptr<Node<ItemType>> nextNodePtr) {
-	this->next = nextNodePtr;
+void Node<ItemType>::setNext(Node<ItemType>* nextNodePtr) {
+	next = nextNodePtr;
 }
 
 template<typename ItemType>
@@ -42,6 +37,6 @@ ItemType Node<ItemType>::getItem() const {
 }
 
 template<typename ItemType>
-std::shared_ptr<Node<ItemType>> Node<ItemType>::getNext() const {
+Node<ItemType>* Node<ItemType>::getNext() const {
 	return next;
 }

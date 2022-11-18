@@ -46,7 +46,6 @@ public:
 	std::vector<ItemType> toVector() const;
 
 private:
-	//Node<ItemType>* headPtr{ nullptr }; // Pointer to first node
 	std::shared_ptr<Node<ItemType>> headPtr{ nullptr }; // Pointer to first node
 	int itemCount{ 0 };					// Current count of bag items
 

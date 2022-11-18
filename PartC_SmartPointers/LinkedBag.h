@@ -17,7 +17,7 @@
 template<typename ItemType>
 class LinkedBag : public BagInterface<ItemType> {
 
-/*--------------------------CSC340-------------------------------------*/
+	/*--------------------------CSC340-------------------------------------*/
 public:
 	bool removeSecondNode340();
 	bool addEnd340(const ItemType&);
@@ -28,9 +28,9 @@ public:
 	int getFrequencyOf340RecursiveNoHelper(const ItemType&) const;
 	ItemType removeRandom340();
 private:
-	int getCurrentSize340RecursiveHelper(std::unique_ptr< Node<ItemType> >) const; // if needed
-	int getFrequencyOf340RecursiveHelper(std::unique_ptr< Node<ItemType> >, const ItemType&) const; // if needed
-/*----------------------------------------------------------------------*/
+	int getCurrentSize340RecursiveHelper(std::shared_ptr<Node<ItemType>>) const; // if needed
+	int getFrequencyOf340RecursiveHelper(std::shared_ptr<Node<ItemType>>, const ItemType&) const; // if needed
+	/*----------------------------------------------------------------------*/
 
 public:
 	LinkedBag();
@@ -46,9 +46,10 @@ public:
 	std::vector<ItemType> toVector() const;
 
 private:
-	std::unique_ptr< Node<ItemType> > headPtr{ nullptr }; // Pointer to first node
+	//Node<ItemType>* headPtr{ nullptr }; // Pointer to first node
+	std::shared_ptr<Node<ItemType>> headPtr{ nullptr }; // Pointer to first node
 	int itemCount{ 0 };					// Current count of bag items
 
 	// pointer to the node or the null pointer 
-	std::unique_ptr< Node<ItemType> > getPointerTo(const ItemType&) const;
+	std::shared_ptr<Node<ItemType>> getPointerTo(const ItemType&) const;
 };
